@@ -10,7 +10,7 @@ import UIKit
 
 class DropitViewController: UIViewController, UIDynamicAnimatorDelegate {
 
-    @IBOutlet weak var gameView: UIView!
+    @IBOutlet weak var gameView: BezierPathsView!
     
     lazy var animator: UIDynamicAnimator = {
         let lazillyCreatedDynamicAnimator = UIDynamicAnimator(referenceView: self.gameView)
@@ -19,10 +19,45 @@ class DropitViewController: UIViewController, UIDynamicAnimatorDelegate {
     }()
     
     private let dropBehavior = DropitBehavior()
+    private var attachment: UIAttachmentBehavior? {
+        willSet {
+            if attachment != nil {
+                animator.removeBehavior(attachment!)
+                gameView.setPath(nil, named: PathNames.Attachment)
+            }
+        }
+        didSet {
+            if attachment != nil {
+                animator.addBehavior(attachment!)
+                attachment?.action = { [unowned self] in   // if hasn't the action method, will just excute once
+                    if let attachedView = self.attachment?.items.first as? UIView {
+                        let path = UIBezierPath()
+                        path.moveToPoint(self.attachment!.anchorPoint)
+                        path.addLineToPoint(attachedView.center)
+                        self.gameView.setPath(path, named: PathNames.Attachment)
+                    }
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         animator.addBehavior(dropBehavior)
+    }
+    
+    struct PathNames {
+        static let MiddleBarrier = "Middle Barrier"
+        static let Attachment = "Attachment"
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let barrierSize = dropSize
+        let barrierOrigin = CGPoint(x: gameView.bounds.midX - barrierSize.width / 2, y: gameView.bounds.midY - barrierSize.height / 2)
+        let path = UIBezierPath(ovalInRect: CGRect(origin: barrierOrigin, size: barrierSize))
+        dropBehavior.addBarrier(path, named: PathNames.MiddleBarrier)
+        gameView.setPath(path, named: PathNames.MiddleBarrier)
     }
     
     private var dropsPerRow = 10
@@ -40,9 +75,28 @@ class DropitViewController: UIViewController, UIDynamicAnimatorDelegate {
     
     // MARK: - Drop & Remove
     
+    
+    @IBAction func grapDrop(sender: UIPanGestureRecognizer) {
+        let gesturePoint = sender.locationInView(gameView)
+        switch sender.state {
+        case .Began:
+            if let viewToAnchorPoint = lastDroppedView {
+                attachment = UIAttachmentBehavior(item: viewToAnchorPoint, attachedToAnchor: gesturePoint)
+                lastDroppedView = nil
+            }
+        case .Changed:
+            attachment?.anchorPoint = gesturePoint
+        case .Ended:
+            attachment = nil
+        default: break
+        }
+    }
+    
     @IBAction func drop(sender: UITapGestureRecognizer) {
         drop()
     }
+    
+    var lastDroppedView: UIView?
 
     private func drop() {
         var frame = CGRect(origin: CGPointZero, size: dropSize)
@@ -50,6 +104,8 @@ class DropitViewController: UIViewController, UIDynamicAnimatorDelegate {
 
         let dropView = UIView(frame: frame)
         dropView.backgroundColor = UIColor.random
+        
+        lastDroppedView = dropView
         
         dropBehavior.addDrop(dropView)
     }

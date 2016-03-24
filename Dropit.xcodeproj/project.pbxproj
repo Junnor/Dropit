@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B3737D61CA3AABF00F44F69 /* BezierPathsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3737D51CA3AABE00F44F69 /* BezierPathsView.swift */; };
 		8BC972A31CA2E0550048A7E7 /* DropitBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC972A21CA2E0550048A7E7 /* DropitBehavior.swift */; };
 		8BE54E2A1CA2CE4A009E8049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE54E291CA2CE4A009E8049 /* AppDelegate.swift */; };
 		8BE54E2C1CA2CE4A009E8049 /* DropitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE54E2B1CA2CE4A009E8049 /* DropitViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B3737D51CA3AABE00F44F69 /* BezierPathsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierPathsView.swift; sourceTree = "<group>"; };
 		8BC972A21CA2E0550048A7E7 /* DropitBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropitBehavior.swift; sourceTree = "<group>"; };
 		8BE54E261CA2CE4A009E8049 /* Dropit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dropit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BE54E291CA2CE4A009E8049 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				8BE54E291CA2CE4A009E8049 /* AppDelegate.swift */,
 				8BE54E2B1CA2CE4A009E8049 /* DropitViewController.swift */,
 				8BC972A21CA2E0550048A7E7 /* DropitBehavior.swift */,
+				8B3737D51CA3AABE00F44F69 /* BezierPathsView.swift */,
 				8BE54E2D1CA2CE4A009E8049 /* Main.storyboard */,
 				8BE54E301CA2CE4A009E8049 /* Assets.xcassets */,
 				8BE54E321CA2CE4A009E8049 /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B3737D61CA3AABF00F44F69 /* BezierPathsView.swift in Sources */,
 				8BE54E2C1CA2CE4A009E8049 /* DropitViewController.swift in Sources */,
 				8BE54E2A1CA2CE4A009E8049 /* AppDelegate.swift in Sources */,
 				8BC972A31CA2E0550048A7E7 /* DropitBehavior.swift in Sources */,
